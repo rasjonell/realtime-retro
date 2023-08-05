@@ -1,38 +1,48 @@
-# create-svelte
+# Window 98 Style Personal Website With Real-Time Updates
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+![Demo GIF](./demo.gif)
 
-## Creating a project
+## The Good Parts
 
-If you're seeing this, you've probably already done this step. Congrats!
+- Real-Time communication is handled using the awesome [PartyKit](https://partykit.io), the whole backend fits in here: `src/lib/partykit.server.ts`
+- The retro windows 98-like look is made using [98.css](https://jdan.github.io/98.css)
+- Real-Time cursor updates:
+  - To not be a burden on the network, I throttle the `mousemove` event broadcasting.
+  - This results in very laggy cursor position rendering on other clients.
+  - To fix it, I used [Svelte's](https://svelte.dev) `Tweened` stores, but since my state is not a primitive, but a Map, I had to write a custom `interpolate` function that would modify the position updates smoothly over specified duration(check it here: `src/lib/utils/motion.ts`)
+
+## Running The Project
+
+To run the project you need to run a local instance of our `partykit` server and run the Svelte app in development mode.
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
+git clone https://github.com/rasjonell/realtime-retro
 
-# create a new project in my-app
-npm create svelte@latest my-app
+cd realtime-retro
+
+npm install
+
+npx partykit dev src/lib/partykit/index.server.ts
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Then separately run the Svelte app:
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
 
 ## Building
 
-To create a production version of your app:
+To create a production version of our app:
 
 ```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+To deploy a production version of our `partykit` server:
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+```bash
+npx partykit deploy src/lib/partykit/index.server.ts --name <your-server-name>
+```
+
+You can preview the production build with `npm run preview`.

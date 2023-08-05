@@ -1,0 +1,4 @@
+{
+  "name": "retro-party",
+  "main": "src/server/lib/server/partykit.server.ts"
+}

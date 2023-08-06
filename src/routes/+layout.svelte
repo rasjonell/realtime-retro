@@ -6,6 +6,7 @@
 	import DialogWindow from '$lib/components/DialogWindow.svelte';
 	import { Socket, type CursorActionStore, type CursorPositionStore } from '$lib/partykit/Socket';
 
+	import type PartySocket from 'partysocket';
 	import type { LayoutData } from './$types';
 
 	// Props
@@ -20,13 +21,20 @@
 	// Real-Time State Handlers
 	let cursorAction: CursorActionStore;
 	let currentPathname: string | undefined;
+	let prevSocket: PartySocket | undefined;
 	let cursorPosition: CursorPositionStore | undefined;
 
 	page.subscribe((p) => {
 		if (p.url.pathname.substring(1) === currentPathname) return;
 
+		if (prevSocket) {
+			prevSocket.close();
+			prevSocket = undefined;
+		}
+
 		currentPathname = p.url.pathname.substring(1);
-		const { cursorActionStore, cursorPositionStore } = Socket.init(p.url.pathname);
+		const { cursorActionStore, cursorPositionStore, socket } = Socket.init(currentPathname);
+		prevSocket = socket;
 		cursorAction = cursorActionStore;
 		cursorPosition = cursorPositionStore;
 	});

@@ -1,10 +1,11 @@
 import type { PartyKitServer } from 'partykit/server';
 
-const MessageTypes = ['newConnection', 'disconnected', 'cursorUpdated'];
+const MessageTypes = ['newConnection', 'disconnected', 'cursorUpdated', 'connected', 'clicked'];
 
 export type Message = { senderId: string } & (
 	| { type: 'disconnected'; data: { id: string } }
 	| { type: 'newConnection'; data: { id: string } }
+	| { type: 'clicked'; data: { x: number; y: number } }
 	| { type: 'connected'; data: { connections: string[] } }
 	| { type: 'cursorUpdated'; data: { x: number; y: number } }
 );

@@ -1,11 +1,14 @@
 import PartySocket from 'partysocket';
 import { tweened, type Tweened } from 'svelte/motion';
+import { writable, type Writable } from 'svelte/store';
 
 import { EventListeners } from './EventListeners';
 import type { Message } from '$lib/partykit/index.server';
 import { interpolateCoordinates } from '$lib/utils/motion';
 
 export type CursorPosition = { x: number; y: number };
+export type CursorActionStore = Writable<Set<CursorPosition>>;
+export type CursorPositionStore = Tweened<Map<string, CursorPosition>>;
 
 const host = 'localhost:1999';
 const stores = new Map<string, Tweened<Map<string, CursorPosition>>>();
@@ -14,17 +17,23 @@ export const Socket = {
 	init,
 };
 
-function init(room: string): { socket: PartySocket; store: Tweened<Map<string, CursorPosition>> } {
+function init(room: string): {
+	socket: PartySocket;
+	cursorActionStore: CursorActionStore;
+	cursorPositionStore: CursorPositionStore;
+} {
 	if (room === '') {
 		room = 'home';
 	}
 
-	const store = tweened(new Map<string, CursorPosition>(), {
+	const cursorPositionStore: CursorPositionStore = tweened(new Map<string, CursorPosition>(), {
 		duration: 200,
 		interpolate: interpolateCoordinates,
 	});
 
-	stores.set(room, store);
+	const cursorActionStore: CursorActionStore = writable(new Set());
+
+	stores.set(room, cursorPositionStore);
 
 	const socket = new PartySocket({
 		room,
@@ -39,25 +48,48 @@ function init(room: string): { socket: PartySocket; store: Tweened<Map<string, C
 
 		switch (parsedMessage.type) {
 			case 'connected':
-				store.update((s) => {
+				cursorPositionStore.update((s) => {
 					parsedMessage.data.connections.forEach((id) => s.set(id, { x: 0, y: 0 }));
 					return s;
 				});
 				break;
 
 			case 'disconnected':
-				store.update((s) => {
+				cursorPositionStore.update((s) => {
 					s.delete(parsedMessage.data.id);
 					return s;
 				});
 				break;
 
 			case 'newConnection':
-				store.update((s) => s.set(parsedMessage.data.id, { x: 0, y: 0 }));
+				cursorPositionStore.update((s) => s.set(parsedMessage.data.id, { x: 0, y: 0 }));
 				break;
 
 			case 'cursorUpdated':
-				store.update((s) => s.set(parsedMessage.senderId, parsedMessage.data));
+				cursorPositionStore.update((s) => s.set(parsedMessage.senderId, parsedMessage.data));
+				break;
+
+			case 'clicked':
+				let data: CursorPosition | undefined;
+
+				cursorActionStore.update((s) => {
+					if ([...s].find(({ x, y }) => x === parsedMessage.data.x && parsedMessage.data.y)) {
+						return s;
+					}
+
+					data = parsedMessage.data;
+					return s.add(data);
+				});
+
+				setTimeout(() => {
+					cursorActionStore.update((s) => {
+						if (data) {
+							s.delete(data);
+						}
+						return s;
+					});
+				}, 200);
+
 				break;
 
 			default:
@@ -66,5 +98,5 @@ function init(room: string): { socket: PartySocket; store: Tweened<Map<string, C
 		}
 	});
 
-	return { socket, store };
+	return { socket, cursorPositionStore, cursorActionStore };
 }

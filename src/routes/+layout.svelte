@@ -2,10 +2,9 @@
 	import { page } from '$app/stores';
 	import { getCountry } from '$lib/utils/country';
 	import Cursor from '$lib/components/Cursor.svelte';
+	import ClickCircle from '$lib/components/ClickCircle.svelte';
 	import DialogWindow from '$lib/components/DialogWindow.svelte';
-	import { Socket, type CursorPosition } from '$lib/partykit/Socket';
-
-	import type { Tweened } from 'svelte/motion';
+	import { Socket, type CursorActionStore, type CursorPositionStore } from '$lib/partykit/Socket';
 
 	import type { LayoutData } from './$types';
 
@@ -19,22 +18,31 @@
 	}
 
 	// Real-Time State Handlers
+	let cursorAction: CursorActionStore;
 	let currentPathname: string | undefined;
-	let onlineUsers: Tweened<Map<string, CursorPosition>> | undefined;
+	let cursorPosition: CursorPositionStore | undefined;
 
 	page.subscribe((p) => {
 		if (p.url.pathname.substring(1) === currentPathname) return;
 
 		currentPathname = p.url.pathname.substring(1);
-		onlineUsers = Socket.init(p.url.pathname).store;
+		const { cursorActionStore, cursorPositionStore } = Socket.init(p.url.pathname);
+		cursorAction = cursorActionStore;
+		cursorPosition = cursorPositionStore;
 	});
 
 	const country = getCountry();
 </script>
 
-{#if $onlineUsers}
-	{#each [...$onlineUsers.entries()] as [id, { x, y }]}
+{#if $cursorPosition}
+	{#each [...$cursorPosition.entries()] as [id, { x, y }]}
 		<Cursor {id} {x} {y} {country} />
+	{/each}
+{/if}
+
+{#if $cursorAction}
+	{#each [...$cursorAction] as data, i (i)}
+		<ClickCircle {data} store={cursorAction} />
 	{/each}
 {/if}
 

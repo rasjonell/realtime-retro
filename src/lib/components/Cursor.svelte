@@ -11,7 +11,7 @@
 <div
 	class="cursor-container"
 	transition:fade={{ duration: 200 }}
-	style={`left: ${x}px; top: ${y}px;`}
+	style={`left: ${Math.max(x - 13, 0)}px; top: ${Math.max(y - 10, 0)}px;`}
 >
 	<svg
 		width="32px"

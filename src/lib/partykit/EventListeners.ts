@@ -13,7 +13,7 @@ function init(socket: PartySocket): void {
 
 	document.addEventListener('click', clickListener);
 	document.addEventListener('mousemove', mouseMoveListener);
-	listners.set('click', [clickListener]);
+	listners.set('mousedown', [clickListener]);
 	listners.set('mousemove', [mouseMoveListener]);
 }
 

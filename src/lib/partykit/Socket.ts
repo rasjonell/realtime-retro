@@ -10,7 +10,11 @@ export type CursorPosition = { x: number; y: number };
 export type CursorActionStore = Writable<Set<CursorPosition>>;
 export type CursorPositionStore = Tweened<Map<string, CursorPosition>>;
 
-const host = 'localhost:1999';
+const host = import.meta.env.VITE_PK_HOST;
+const name = import.meta.env.VITE_PK_NAME;
+const username = import.meta.env.VITE_PK_USERNAME;
+const HOST = import.meta.env.DEV ? 'localhost:1999' : `${name}.${username}.${host}`;
+
 const stores = new Map<string, Tweened<Map<string, CursorPosition>>>();
 
 export const Socket = {
@@ -37,7 +41,7 @@ function init(room: string): {
 
 	const socket = new PartySocket({
 		room,
-		host,
+		host: HOST,
 	});
 
 	socket.addEventListener('close', () => EventListeners.deinit);
@@ -73,7 +77,7 @@ function init(room: string): {
 				let data: CursorPosition | undefined;
 
 				cursorActionStore.update((s) => {
-					if ([...s].find(({ x, y }) => x === parsedMessage.data.x && parsedMessage.data.y)) {
+					if ([...s].find(({ x, y }) => x === parsedMessage.data.x && parsedMessage.data.y === y)) {
 						return s;
 					}
 

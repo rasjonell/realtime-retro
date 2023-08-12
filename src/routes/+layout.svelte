@@ -57,21 +57,27 @@
 <div class="layout-container">
 	<div class="window window-container">
 		<div class="title-bar">
-			<div class="title-bar-text">www.gurgen.info</div>
+			<div class="title-bar-text">
+				www.gurgen.info {currentPathname ? `> ${currentPathname.split('/')[0]}` : ''}
+			</div>
 			<div class="title-bar-controls">
 				<button aria-label="Help" on:click={openModal} />
-				<button aria-label="Close" on:click={openModal} />
 			</div>
 		</div>
 
 		<menu role="tablist">
 			{#each data.sections as section}
-				<li role="tab" aria-selected={$page.url.pathname === section.path}>
+				<li
+					role="tab"
+					aria-selected={section.path.length === 1
+						? $page.url.pathname === section.path
+						: $page.url.pathname.startsWith(section.path)}
+				>
 					<a href={section.path}>{section.title}</a>
 				</li>
 			{/each}
 		</menu>
-		<div class="window" role="tabpanel">
+		<div id="window-container" class="window" role="tabpanel">
 			<div class="window-body">
 				<slot />
 			</div>
@@ -98,9 +104,24 @@
 		justify-content: center;
 	}
 
-	.window-container {
-		width: 70dvw;
-		min-height: 30dvh;
-		max-height: 70dvh;
+	@media screen and (max-width: 650px) {
+		.window-container {
+			width: 90dvw;
+			min-height: 30dvh;
+			max-height: 70dvh;
+		}
+	}
+
+	@media screen and (min-width: 650px) {
+		.window-container {
+			width: 60dvw;
+			min-height: 30dvh;
+			max-height: 70dvh;
+		}
+	}
+
+	.window {
+		overflow-y: scroll;
+		max-height: calc(100% - 50px);
 	}
 </style>

@@ -5,7 +5,7 @@ export const load = (() => {
 		sections: [
 			{ path: '/', title: 'Home' },
 			{ path: '/blog', title: 'Blog' },
-			{ path: '/about', title: 'About' }
-		]
+			{ path: '/about', title: 'About' },
+		],
 	};
 }) satisfies LayoutLoad;

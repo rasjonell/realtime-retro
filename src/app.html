@@ -12,6 +12,35 @@
       height: 100dvh;
       overflow: hidden;
       background: silver;
+
+    }
+
+
+    * {
+
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    pre {
+      overflow: scroll;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-size: 1.5rem;
+    }
+
+    img {
+      width: 100%;
     }
   </style>
   %sveltekit.head%

@@ -8,7 +8,7 @@
 - The retro windows 98-like look is made using [98.css](https://jdan.github.io/98.css)
 - Real-Time cursor updates:
   - To not be a burden on the network, I throttle the `mousemove` event broadcasting.
-  - This results in very laggy cursor position rendering on other clients.
+  - This results in a very laggy cursor position rendering on other clients.
   - To fix it, I used [Svelte's](https://svelte.dev) `Tweened` stores, but since my state is not a primitive, but a Map, I had to write a custom `interpolate` function that would modify the position updates smoothly over specified duration(check it here: `src/lib/utils/motion.ts`)
 
 ## Running The Project
@@ -38,6 +38,8 @@ To create a production version of our app:
 ```bash
 npm run build
 ```
+
+Copy `.env.example` to `.env` and update it according to your configs
 
 To deploy a production version of our `partykit` server:
 

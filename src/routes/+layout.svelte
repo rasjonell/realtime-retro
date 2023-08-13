@@ -122,6 +122,7 @@
 
 	.window {
 		overflow-y: scroll;
+		min-height: fit-content;
 		max-height: calc(100% - 50px);
 	}
 </style>

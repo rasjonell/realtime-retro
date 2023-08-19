@@ -5,7 +5,7 @@
 	const posts = data.posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 </script>
 
-<h4 class="title">Today I Learnt</h4>
+<h4 class="title">Today I Learnt 💡</h4>
 
 <ul class="tree-view">
 	{#each posts as post, i}

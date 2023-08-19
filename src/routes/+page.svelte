@@ -6,6 +6,10 @@
 	</li>
 
 	<li>
+		<a class="link" href="/til">💡 Today I Learnt</a>
+	</li>
+
+	<li>
 		Work & Interests
 		<ul>
 			<li>🛜 Real-Time Systmes</li>

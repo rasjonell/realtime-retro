@@ -10,6 +10,7 @@
 
   <link rel="stylesheet" href="https://unpkg.com/98.css">
   <meta name="viewport" content="width=device-width" />
+  <link href="https://unpkg.com/prismjs@v1.x/themes/prism-dark.min.css" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -43,12 +44,27 @@
     img {
       width: 100%;
     }
+
+    input,
+    label,
+    table,
+    button,
+    option,
+    select,
+    .window,
+    textarea,
+    .title-bar,
+    ul.tree-view {
+      font-size: 12px;
+    }
   </style>
   %sveltekit.head%
 </head>
 
 <body data-sveltekit-preload-data="hover">
   <div style="display: contents">%sveltekit.body%</div>
+  <script src="https://unpkg.com/prismjs@v1.x/components/prism-core.min.js"></script>
+  <script src="https://unpkg.com/prismjs@v1.x/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 
 </html>

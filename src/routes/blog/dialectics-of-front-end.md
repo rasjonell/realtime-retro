@@ -1,5 +1,6 @@
 ---
 date: 2023-04-10
+tags: frontend,rendering,architecture
 title: The Dialectics of Front End Rendering Techniques
 abstract: Using dialectical approach, here we discuss the history and the future of front-end rendering techniques.
 ---

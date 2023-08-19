@@ -1,5 +1,6 @@
 ---
 date: 2020-03-26
+tags: awk,unix,data-processing
 title: Using AWK To Process Huge CSV Files
 abstract: AWK is a tool, which, when told so, works as a lightweight CSV processor.
 ---

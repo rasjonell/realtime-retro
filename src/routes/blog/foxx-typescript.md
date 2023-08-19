@@ -1,6 +1,7 @@
 ---
 date: 2020-02-03
 title: Separate Data Access Layer With TypeScript Powered MicroServices
+tags: databases,typescript,architecture
 abstract: Using foxx.ts, we can separate our DAL into type-safe microservices that run embedded in the database.
 ---
 

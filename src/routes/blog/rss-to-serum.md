@@ -1,6 +1,7 @@
 ---
 date: 2020-05-29
 title: Adding RSS Feed To Serum Static Site Generator
+tags: elixir,ssg,rss
 abstract: Creating an RSS Feed generator plugin for Elixir-based Serum Static Site Generator.
 ---
 

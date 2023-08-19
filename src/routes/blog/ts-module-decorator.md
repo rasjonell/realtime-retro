@@ -1,6 +1,7 @@
 ---
 date: 2020-07-08
 title: Type Safe Module Decorators In Typescript
+tags: typescript,architecture
 abstract: Using Typescript Utility Types to create custom module decorators to enable pluggable services.
 ---
 

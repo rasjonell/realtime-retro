@@ -69,6 +69,7 @@
 			{#each data.sections as section}
 				<li
 					role="tab"
+					title={section.tooltip}
 					aria-selected={section.path.length === 1
 						? $page.url.pathname === section.path
 						: $page.url.pathname.startsWith(section.path)}

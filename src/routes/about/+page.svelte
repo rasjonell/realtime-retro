@@ -59,6 +59,11 @@
 					<summary>Responsibility Areas</summary>
 					<ul>
 						<li>Designing and implementing scalable and high-performing solutions</li>
+						<li>Researching Distributed Algorithms, OT and CRDTs</li>
+						<li>
+							Making architectural decisions and recommendations for converting prototypes into
+							products
+						</li>
 					</ul>
 				</details>
 			</li>

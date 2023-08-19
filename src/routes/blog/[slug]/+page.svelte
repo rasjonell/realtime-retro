@@ -6,7 +6,13 @@
 
 <article>
 	<h4>{data.title}</h4>
-	<p>Published: {new Date(data.date).toLocaleDateString('en-Us', { dateStyle: 'long' })}</p>
+	<p>
+		Published: {new Date(data.date).toLocaleDateString('en-Us', { dateStyle: 'long' })}
+		<br />
+		{#each data.tags as tag, i}
+			<a class="link" href={`/tags/${tag}`}>#{tag}</a>{i !== data.tags.length - 1 ? ', ' : ''}
+		{/each}
+	</p>
 	<svelte:component this={data.content} />
 </article>
 

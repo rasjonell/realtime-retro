@@ -1,7 +1,10 @@
 <script lang="ts">
+	import '98.css';
+
 	import { page } from '$app/stores';
 	import { getCountry } from '$lib/utils/country';
 	import Cursor from '$lib/components/Cursor.svelte';
+	import WebRing from '$lib/components/WebRing.svelte';
 	import ClickCircle from '$lib/components/ClickCircle.svelte';
 	import DialogWindow from '$lib/components/DialogWindow.svelte';
 	import { Socket, type CursorActionStore, type CursorPositionStore } from '$lib/partykit/Socket';
@@ -16,6 +19,11 @@
 	let showModal = false;
 	function openModal() {
 		showModal = true;
+	}
+
+	let showWebRingModal = false;
+	function openWebRingModal() {
+		showWebRingModal = true;
 	}
 
 	// Real-Time State Handlers
@@ -55,16 +63,20 @@
 {/if}
 
 <div class="layout-container">
+	<WebRing on:click={openWebRingModal} />
+
 	<div class="window window-container">
 		<div class="title-bar">
 			<div class="title-bar-text">
 				www.gurgen.info {currentPathname ? `> ${currentPathname.split('/')[0]}` : ''}
 			</div>
 			<div class="title-bar-controls">
+				<button aria-label="Maximize" on:click={openWebRingModal} />
 				<button aria-label="Help" on:click={openModal} />
 			</div>
 		</div>
 
+		<!-- svelte-ignore a11y-no-noninteractive-element-to-interactive-role -->
 		<menu role="tablist">
 			{#each data.sections as section}
 				<li
@@ -96,6 +108,20 @@
 	</p>
 </DialogWindow>
 
+<DialogWindow bind:showModal={showWebRingModal}>
+	<span slot="header">Check Out Our Web Ring</span>
+	<p>
+		<a href="https://ծիր.հայ/" target="_blank">Ծիր.հայ</a> is a web ring where you can discover similar
+		websites and join a community of connected sites.
+	</p>
+
+	<div class="status-bar">
+		<a href="https://ծիր.հայ/նախորդ" class="status-bar-field"> ← Previous </a>
+		<a href="https://ծիր.հայ/պատահական" class="status-bar-field"> 🎲 Random 🎲 </a>
+		<a href="https://ծիր.հայ/յաջորդ" class="status-bar-field"> Next → </a>
+	</div>
+</DialogWindow>
+
 <style>
 	.layout-container {
 		height: 100%;
@@ -125,5 +151,14 @@
 		overflow-y: scroll;
 		min-height: fit-content;
 		max-height: calc(100% - 50px);
+	}
+
+	.status-bar {
+		width: 100%;
+		font-size: 1rem;
+	}
+
+	.status-bar-field {
+		text-align: center;
 	}
 </style>

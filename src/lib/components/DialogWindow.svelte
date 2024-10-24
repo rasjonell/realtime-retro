@@ -10,6 +10,8 @@
 	}
 </script>
 
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <dialog bind:this={dialog} on:click|self={close} on:close={() => (showModal = false)}>
 	<div class="window" style="width: 300px; padding: 3px;">
 		<div class="title-bar">

@@ -12,8 +12,9 @@
 			<li>
 				Work & Past Experience
 				<ul>
+					<li>Currently Senior Software Engineering Consultant</li>
 					<li>
-						Currently - Senior Software Engineer at <a
+						Until 2024 Senior Software Engineer at <a
 							class="link"
 							target="_blank"
 							href="https://www.miro.com">Miro</a

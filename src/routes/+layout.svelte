@@ -26,6 +26,8 @@
 		showWebRingModal = true;
 	}
 
+	let showWebRingIcon = false;
+
 	// Real-Time State Handlers
 	let cursorAction: CursorActionStore;
 	let currentPathname: string | undefined;
@@ -33,6 +35,8 @@
 	let cursorPosition: CursorPositionStore | undefined;
 
 	page.subscribe((p) => {
+		showWebRingIcon = p.url.pathname === '/';
+
 		if (p.url.pathname.substring(1) === currentPathname) return;
 
 		if (prevSocket) {
@@ -63,7 +67,9 @@
 {/if}
 
 <div class="layout-container">
-	<WebRing on:click={openWebRingModal} />
+	{#if showWebRingIcon}
+		<WebRing on:click={openWebRingModal} />
+	{/if}
 
 	<div class="window window-container">
 		<div class="title-bar">

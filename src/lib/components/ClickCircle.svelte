@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { scale } from 'svelte/transition';
 
-	import type { CursorActionStore, CursorPosition } from '$lib/partykit/Socket';
+	import type { CursorPosition } from '$lib/partykit/Socket';
 
 	export let data: CursorPosition;
-	export let store: CursorActionStore;
 </script>
 
 <div

@@ -11,7 +11,7 @@
 
 	<li>
 		Work & Interests
-		<ul>
+		<ul class="top-gap">
 			<li>🛜 Real-Time Systmes</li>
 			<li>📝 Collaborative Editing</li>
 			<li>🕸️ Graph Databases</li>
@@ -27,7 +27,7 @@
 				</li>
 				<li>
 					<details>
-						<summary>Contacts</summary>
+						<summary class="top-gap">☎️ Contacts</summary>
 						<ul>
 							<li>
 								<a class="link" target="_blank" href="https://www.linkedin.com/in/gurgenhayrapetyan"
@@ -64,5 +64,9 @@
 
 	.link {
 		text-decoration: underline;
+	}
+
+	.top-gap {
+		margin-top: 0.5rem;
 	}
 </style>

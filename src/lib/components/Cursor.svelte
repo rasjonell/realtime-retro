@@ -4,7 +4,6 @@
 
 	export let x: number;
 	export let y: number;
-	export let id: string;
 	export let country: { code: string; name: string; emoji: string };
 </script>
 

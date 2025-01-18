@@ -55,14 +55,14 @@
 </script>
 
 {#if $cursorPosition}
-	{#each [...$cursorPosition.entries()] as [id, { x, y }]}
-		<Cursor {id} {x} {y} {country} />
+	{#each [...$cursorPosition.values()] as { x, y }}
+		<Cursor {x} {y} {country} />
 	{/each}
 {/if}
 
 {#if $cursorAction}
 	{#each [...$cursorAction] as data, i (i)}
-		<ClickCircle {data} store={cursorAction} />
+		<ClickCircle {data} />
 	{/each}
 {/if}
 

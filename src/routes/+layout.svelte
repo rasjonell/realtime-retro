@@ -140,7 +140,6 @@
 	@media screen and (max-width: 650px) {
 		.window-container {
 			width: 90dvw;
-			min-height: 30dvh;
 			max-height: 70dvh;
 		}
 	}
@@ -148,14 +147,12 @@
 	@media screen and (min-width: 650px) {
 		.window-container {
 			width: 60dvw;
-			min-height: 30dvh;
 			max-height: 70dvh;
 		}
 	}
 
 	.window {
 		overflow-y: scroll;
-		min-height: fit-content;
 		max-height: calc(100% - 50px);
 	}
 
